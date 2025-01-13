@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Website</title>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        section {
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #home {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+            padding-top: 6rem;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #3498db;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 1rem;
+            max-width: 800px;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        #poems {
+            background: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .poem-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .poem {
+            text-align: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+
+        .poem.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            font-size: 2rem;
+            color: #3498db;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .arrow-left {
+            left: 0;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+
+        .skill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill {
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #contact {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            color: #3498db;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+        /* Footer Styling */
+.footer {
+    background-color: #f1f1f1; /* Light gray background */
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    color: black; /* Black color for the copyright text */
+    margin: 0;
+    font-size: 14px;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+            <li><a href="#poems">Poems</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <img src="C:\Users\bhatt\Desktop\photos\profile.jpg" alt="Your Profile Picture" class="profile-img">
+        <h1>SAHITYA BHATTARAI</h1>
+        <p>Web Developer | Poet | Creative Thinker</p>
+    </section>
+
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="card">
+            <h3>Ilam Tea Garden English School</h3>
+            <p>Grade 10</p>
+            <p>2008-2021 AD</p>
+        </div>
+
+        <div class="card">
+            <h3>Devi Secondary School</h3>
+            <p>+2 </p>
+            <p>2021-2023 AD</p>
+        </div>
+   
+        <div class="card">
+            <h3>Mechi Multiple Campus</h3>
+            <p>BSc.CSIT</p>
+            <p>2023 - Present</p>
+        </div>
+    </section>
+
+    <section id="hobbies">
+        <h2 class="section-title">Hobbies</h2>
+        <div class="skill-container">
+            <span class="skill">Photography</span>
+            <span class="skill">Writing</span>
+            <span class="skill">Cricket</span>
+            <span class="skill">Reading</span>
+        </div>
+    </section>
+
+    <section id="poems">
+        <h2 class="section-title">My Poems</h2>
+        <div class="poem-container">
+            <div class="poem visible">
+                <h3>जीवन अनि मृत्यु</h3>
+                <p><i>जीवन कुरा गर्छ, मृत्युले चिच्याउँछ,<br>
+                    हामी समयको भीडमा, हराउँछौं अनायासै।<br>
+                    सास त लिन्छौं, तर उधारोमा साँचिएको,<br>
+                    मुटुको धड्कन पनि, क्षणिक गीतले गाइएको।<br><br>
+                    
+                    जीवन नाच्छ अँध्यारोको किनारमा,<br>
+                    जुनकिरी जस्तो, टिमटिमाउँछ अनि हराउँछ।<br>
+                    हामी सूर्यलाई पछ्याउँछौं, उज्यालोलाई समाउँछौं,<br>
+                    तर मृत्युले, छायाँझैं सधैं खेदाउँछ।<br><br>
+                    
+                    जीवन भनेको के हो? एक क्षणिक सपना,<br>
+                    समयको चिसो धारामा हराएको एक छाल।<br>
+                    हामी संघर्ष गर्छौं, प्रेम गर्छौं, आशा गर्दछौं,<br>
+                    तर एक दिन सबैले मृत्युको सामना गर्छौं।<br><br>
+                    
+                    मृत्युमा न साथ न शत्रु, केवल मौनता छ,<br>
+                    जहाँ हावा पनि चल्दैन, शून्य मात्र बग्छ।<br>
+                    तर त्यो मौनतामा, सत्य लुक्छ कतै,<br>
+                    जीवन त केवल क्षणिक सपना हो ,<br> सत्य मृत्युमै।.</i></p>
+            </div>
+            <div class="poem">
+                <h3>तिमिनै तिमि</h3>
+                <p><i>
+                तिमी फूलको बगैंचा,<br>
+                म तिम्रो भमरा हुँ,<br>
+                तिम्रो हाँसोले म, <br>
+                सधैं सधैं झुम्छु।<br>
+                तिमी जूनको उज्यालो<br>
+                म रातको छायाँ,<br>
+                तिम्रो साथ बिना, <br>
+                अधुरो यो माया।<br>
+                तिम्रो नजर सागर,<br>
+                म गहिराइमा डुब्छु, <br>
+                तिम्रो नाम सुनेरै,<br>
+                मुहारमा मुस्कान ल्याउँछु ।<br>
+                तिमी बादलको रङ, <br>
+                म तिम्रो इन्द्रेणी,<br>
+                तिम्रो मायाले,<br>
+                हर दिन हुन्छ खुशी।<br>
+                तिमी मेरो कविता, <br>
+                माया शब्दमा उर्लन्छ,<br> 
+                तिम्रो प्रेमले, <br>
+                यो जीवन झल्कन्छ। <br>
+                सधैंभरि म, <br>
+                तिमीमा रमाउँछु, <br>
+                तिमी संगै अब <br>
+                सातै जुनि बिताउँछु ।<br>
+                </i></p>
+            </div>
+            <button class="arrow-btn arrow-left" id="prevPoem">←</button>
+            <button class="arrow-btn arrow-right" id="nextPoem">→</button>
+        </div>
+        <!-- Read More Button -->
+        <div style="text-align:center; margin-top:20px;">
+            <a href="https://supersubday.github.io/story/" target="_blank" class="btn-read-more">Read More</a>
+        </div>
+    </section>
+    
+    <style>
+        .btn-read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+    
+        .btn-read-more:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+    
+        .btn-read-more:active {
+            background-color: #1c6391;
+            transform: translateY(0);
+        }
+    </style>
+    
+    
+
+    <section id="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <p>Get in touch with me</p>
+        
+        <div class="contact-form">
+            <form action="mailto:bhattaraisahitya4@gmail.com" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/92aoq1dbLwLmxddK/"><i class="fab fa-facebook"></i></a>
+            <a href="https://wa.me/qr/ZB3NIBHN7HAYC1"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/me.sahitya/profilecard/?igsh=Zms4ajVnNGpqZ3hi"><i class="fab fa-instagram"></i></a>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>&copy; 2024 Sahitya Bhattarai. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        // Slide poems with arrows
+        let currentPoemIndex = 0;
+        const poems = document.querySelectorAll('.poem');
+        const totalPoems = poems.length;
+
+        function updatePoemDisplay() {
+            poems.forEach((poem, index) => {
+                poem.classList.remove('visible');
+                if (index === currentPoemIndex) {
+                    poem.classList.add('visible');
+                }
+            });
+        }
+
+        document.getElementById('prevPoem').addEventListener('click', () => {
+            currentPoemIndex = (currentPoemIndex === 0) ? totalPoems - 1 : currentPoemIndex - 1;
+            updatePoemDisplay();
+        });
+
+        document.getElementById('nextPoem').addEventListener('click', () => {
+            currentPoemIndex = (currentPoemIndex === totalPoems - 1) ? 0 : currentPoemIndex + 1;
+            updatePoemDisplay();
+        });
+
+        // Initial display of poems
+        updatePoemDisplay();
+    </script>
+</body>
+</html>
